@@ -31,14 +31,21 @@ export const gameSlice = createSlice({
       state.winner = action.payload;
     },
     resetTable: (state) => {
-      state.gameTable = [null, null, null, null, null, null, null, null, null]
+      state.gameTable = [null, null, null, null, null, null, null, null, null];
     },
-    setCounter: (state,action) => {
+    setCounter: (state, action) => {
       state.counter = action.payload;
-    }
+    },
   },
 });
 
-export const { gameStatus, changeTurn, changeTable,changeWinner,resetTable,setCounter } = gameSlice.actions;
+export const {
+  gameStatus,
+  changeTurn,
+  changeTable,
+  changeWinner,
+  resetTable,
+  setCounter,
+} = gameSlice.actions;
 
 export default gameSlice.reducer;

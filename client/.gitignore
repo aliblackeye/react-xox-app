@@ -1,12 +1,15 @@
+
 # dependencies
-node_modules
+/node_modules
 /.pnp
 .pnp.js
+node_modules/
+/.netlify
 # testing
 /coverage
 
 # production
-build
+/build
 
 # misc
 .DS_Store

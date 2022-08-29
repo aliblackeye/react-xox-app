@@ -1,14 +1,15 @@
-import './onlinegame.scss'
-import { useDispatch } from 'react-redux'
-import { changeTurn, changeTable, setCounter } from '../../redux/gameSlice';
+import './localgame.scss';
+import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { gameStatus, changeTurn, changeTable, changeWinner, resetTable, setCounter } from '../../redux/gameSlice';
+import { useEffect } from 'react';
 
-function OnlineGame() {
+function LocalGame() {
 
+    const { isStarted, gameTable, turn, winner, counter } = useSelector((state) => state.game)
     const dispatch = useDispatch()
-    const turn = "p1";
-    const counter = 0;
-    const isStarted = true;
-    const winner = "p1";
+    const navigate = useNavigate()
+
     const handleClick = (box) => {
 
         if (!winner) {
@@ -29,7 +30,48 @@ function OnlineGame() {
                 dispatch(changeTurn())
             }
         }
+
     }
+
+    useEffect(() => {
+
+        const winPatterns = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8],
+            [0, 3, 6], [1, 4, 7], [2, 5, 8],
+            [0, 4, 8], [2, 4, 6],
+        ];
+
+        var count = 0;
+        winPatterns.forEach(pattern => {
+            const indexes = pattern;
+            count += 1;
+            if (gameTable[indexes[0]] === gameTable[indexes[1]] && gameTable[indexes[2]] === gameTable[indexes[1]] &&
+                gameTable[indexes[0]] !== null && gameTable[indexes[1]] !== null && gameTable[indexes[2]] !== null) {
+                return gameTable[indexes[0]] === "O" ? dispatch(changeWinner("p1")) : dispatch(changeWinner("p2"))
+            }
+
+            if (count === 7) {
+                counter === 9 && dispatch(changeWinner("draw"));
+            }
+
+        })
+
+        !isStarted && navigate("/")
+
+
+        winner && setTimeout(() => {
+            navigate("/")
+            dispatch(resetTable())
+            dispatch(gameStatus(false))
+            dispatch(changeWinner(null))
+            dispatch(changeTurn(null))
+            dispatch(setCounter(0))
+        }, 1400);
+
+
+
+    }, [gameTable, dispatch, isStarted, navigate, winner, counter])
+
 
 
 
@@ -78,4 +120,4 @@ function OnlineGame() {
     )
 }
 
-export default OnlineGame
+export default LocalGame

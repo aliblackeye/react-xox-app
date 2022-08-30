@@ -9,7 +9,7 @@ Bu proje Practicum için hazırlanmıştır.
 
 #### Kullanılan Teknolojiler
 
-Redux Toolkit ve SASS
+Redux Toolkit, Socket.io ve SASS
 
 
 #### Projemi Yayınladığım Website

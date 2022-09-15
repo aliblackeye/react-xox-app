@@ -1,7 +1,6 @@
 # React ile XOX Oyunu Projesi
 
-
-Bu proje Practicum için hazırlanmıştır.
+Socket.io pratiği yapmak için hazırlanmıştır.
 
 ## Oyundan Bir Görüntü
 
